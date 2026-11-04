@@ -30,6 +30,7 @@
                                 <th class="px-4 py-2 font-medium whitespace-nowrap">時限</th>
                                 <th class="px-4 py-2 font-medium whitespace-nowrap">授業名</th>
                                 <th class="px-4 py-2 font-medium whitespace-nowrap">教室</th>
+                                <th class="px-4 py-2 font-medium whitespace-nowrap">操作</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,6 +43,14 @@
                                     <td class="px-4 py-2 whitespace-nowrap">{{ $entry->period }}</td>
                                     <td class="px-4 py-2 whitespace-nowrap">{{ $entry->title }}</td>
                                     <td class="px-4 py-2 whitespace-nowrap">{{ $entry->room }}</td>
+                                    <td class="px-4 py-2 whitespace-nowrap">
+                                        <a href="/entries/{{ $entry->id }}/edit" class="underline">編集</a>
+                                        <form action="/entries/{{ $entry->id }}" method="post" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="underline">削除</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

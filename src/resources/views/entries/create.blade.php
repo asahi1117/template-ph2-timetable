@@ -21,31 +21,40 @@
             <div>
                 <label for="day" class="block text-sm font-medium text-slate-700">曜日</label>
                 <select id="day" name="day" required class="mt-1 w-full rounded border border-slate-300 px-3 py-2">
-                    <option value="1">月</option>
-                    <option value="2">火</option>
-                    <option value="3">水</option>
-                    <option value="4">木</option>
-                    <option value="5">金</option>
+                    <option value="1" @selected(old('day', '1') == 1)>月</option>
+                    <option value="2" @selected(old('day') == 2)>火</option>
+                    <option value="3" @selected(old('day') == 3)>水</option>
+                    <option value="4" @selected(old('day') == 4)>木</option>
+                    <option value="5" @selected(old('day') == 5)>金</option>
                 </select>
+                @error('day')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
             </div>
 
             <div>
                 <label for="period" class="block text-sm font-medium text-slate-700">時限</label>
                 <select id="period" name="period" required class="mt-1 w-full rounded border border-slate-300 px-3 py-2">
                     @for ($period = 1; $period <= 6; $period++)
-                        <option value="{{ $period }}">{{ $period }}限</option>
+                        <option value="{{ $period }}" @selected(old('period', '1') == $period)>{{ $period }}限</option>
                     @endfor
                 </select>
+                @error('period')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
             </div>
 
             <div>
                 <label for="title" class="block text-sm font-medium text-slate-700">授業名</label>
-                <input id="title" name="title" type="text" required class="mt-1 w-full rounded border border-slate-300 px-3 py-2">
+                <input id="title" name="title" type="text" value="{{ old('title', $entry->title ?? '') }}" class="mt-1 w-full rounded border border-slate-300 px-3 py-2">
+                @error('title')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
             </div>
 
             <div>
                 <label for="room" class="block text-sm font-medium text-slate-700">教室</label>
-                <input id="room" name="room" type="text" class="mt-1 w-full rounded border border-slate-300 px-3 py-2">
+                <input id="room" name="room" type="text" value="{{ old('room') }}" class="mt-1 w-full rounded border border-slate-300 px-3 py-2">
             </div>
 
             <div class="flex items-center gap-4 pt-2">
